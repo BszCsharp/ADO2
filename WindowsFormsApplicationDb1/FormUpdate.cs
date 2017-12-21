@@ -81,5 +81,11 @@ namespace WindowsFormsApplicationDb1
             this.Result = DialogResult.Cancel;
             this.Close();
         }
+
+        private void buttonTextOpen_Click(object sender, EventArgs e)
+        {
+            textBoxARtikelgruppe.Enabled = true;
+
+        }
     }
 }

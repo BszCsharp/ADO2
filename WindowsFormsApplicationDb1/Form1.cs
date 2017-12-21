@@ -122,6 +122,8 @@ namespace WindowsFormsApplicationDb1
 
                     
                     updateArtikel(a);
+                    listBoxAusgabe.DataSource = null;
+                    listBoxAusgabe.DataSource = artikelList;
 
                 }
                 else
@@ -166,6 +168,14 @@ namespace WindowsFormsApplicationDb1
                 MessageBox.Show("Fehler beim Update");
                 toolStripStatusLabel1.Text = exc.Message;
             }
+        }
+
+        private void buttonNeuerDatensatz_Click(object sender, EventArgs e)
+        {
+            Artikel a = new Artikel();
+            FormInsert frmInsert = new FormInsert(con, a);
+            frmInsert.ShowDialog();
+
         }
     }
 }
