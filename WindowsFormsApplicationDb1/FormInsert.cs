@@ -56,5 +56,19 @@ namespace WindowsFormsApplicationDb1
 
 
         }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            a.ArtikelNr = textBoxArtikelnummer.Text;
+            a.ArtikelGruppe = ((Artikelgruppe)comboBoxArtikelGruppe.SelectedItem).ArtGruppenId;
+            a.Bezeichnung = textBoxARtikelbezeichnung.Text;
+            a.Bestand = Convert.ToInt16(textBoxBestand.Text);
+            a.Meldebestand = Convert.ToInt16(textBoxMeldebestand.Text);
+            a.Verpackung = ((Verpackung)comboBoxVerpackung.SelectedItem).VerpackungId;
+            a.VkPreis = Convert.ToDecimal(textBoxVkPreis.Text);
+            a.LetzteEntnahme = dateTimePicker1.Value;
+
+            this.Close();
+        }
     }
 }

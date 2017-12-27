@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace WindowsFormsApplicationDb1
 {
@@ -175,7 +176,37 @@ namespace WindowsFormsApplicationDb1
             Artikel a = new Artikel();
             FormInsert frmInsert = new FormInsert(con, a);
             frmInsert.ShowDialog();
+            InsertData(a);
 
+        }
+        private void InsertData(Artikel a)
+        {
+            OleDbCommand cmd = con.CreateCommand();
+            cmd.Parameters.AddWithValue("ANR", a.ArtikelNr);
+            cmd.Parameters.AddWithValue("AGR", a.ArtikelGruppe);
+            cmd.Parameters.AddWithValue("BEZ", a.Bezeichnung);
+            cmd.Parameters.AddWithValue("BST", a.Bestand);
+            cmd.Parameters.AddWithValue("MBST", a.Meldebestand);
+            cmd.Parameters.AddWithValue("VPA", a.Verpackung);
+            String preis = a.VkPreis.ToString(new CultureInfo("de-DE"));
+            cmd.Parameters.AddWithValue("VKP", a.VkPreis.ToString(new CultureInfo("de-DE")));
+            cmd.Parameters.AddWithValue("LENT", a.LetzteEntnahme.ToString());
+            String sql = "Insert INTO tArtikel(ArtikelNr,ArtikelGruppe,Bezeichnung,Bestand,Meldebestand,Verpackung,VkPreis,letzteEntnahme) ";
+            sql += "Values(ANR,AGR,BEZ,BST,MBST,VPA,VKP,LENT)";
+            cmd.CommandText = sql;
+            try
+            {
+                cmd.ExecuteNonQuery();
+                toolStripStatusLabel1.Text = "Insert erfolgreich";
+
+            }
+            catch (Exception exc)
+            {
+
+                MessageBox.Show("DB-Fehler");
+                toolStripStatusLabel1.Text = exc.Message;
+
+            }
         }
     }
 }
